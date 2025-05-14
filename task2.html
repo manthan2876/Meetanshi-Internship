@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="task2.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img src="link.png" alt="link" class="linkIcon" />
+        <h3>Broken Link Detective</h3>
+      </div>
+      <div class="options">
+        <ul>
+          <li>Features</li>
+          <li>How It works</li>
+          <li>Pricing</li>
+          <li>Testimonlals</li>
+        </ul>
+      </div>
+      <div class="rightNav">
+        <img src="search.png" alt="search" class="searchIcon" />
+        <p>Search</p>
+        <button class="demobtn">Try Demo</button>
+      </div>
+    </header>
+    <main>
+      <p class="text1">Simple Pricing</p>
+      <h1 class="text2">Stop Losing Coustomers to 404 errors</h1>
+      <p class="text3">
+        Choose a plan that's right for your store. No hidden fees or long-trem
+        commitment.
+      </p>
+      <div class="shutter">
+        <div class="monthly" id="monthly">Monthly</div>
+        <div class="annual" id="annual">Annual (Save 20%)</div>
+      </div>
+      <div class="toggle" id="toggle"></div>
+      <div class="cardContainer">
+        <div class="card1">
+          <h4>Free</h4>
+          <h1>Free</h1>
+          <p class="texts">WHAT'S INCLUDED</p>
+          <ul>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>5 404 error detection per month</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Manual redirect creation</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Basic error reports</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Email notification for new 404s</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Community support via email</p>
+            </li>
+          </ul>
+          <p class="texts">LIMITATIONS</p>
+          <ul>
+            <li>
+              <img src="false.png" alt="false" class="falseIcon" />
+              <p class="falseText">Limited to 5 detection per month</p>
+            </li>
+            <li>
+              <img src="false.png" alt="false" class="falseIcon" />
+              <p class="falseText">No bulk editing tools</p>
+            </li>
+            <li>
+              <img src="false.png" alt="false" class="falseIcon" />
+              <p class="falseText">No advance analytics</p>
+            </li>
+            <li>
+              <img src="false.png" alt="false" class="falseIcon" />
+              <p class="falseText">Manual fixies only</p>
+            </li>
+          </ul>
+          <button class="clearbtn">Start Free</button>
+        </div>
+        <div class="card2">
+          <h4>Pro</h4>
+          <div class="amountContainer">
+            <h1>$9.99</h1>
+            <p>/month</p>
+          </div>
+          <p class="texts">WHAT'S INCLUDED</p>
+          <ul>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Unlimited 404 error detection</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Automatic detection of new errors</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Bulk redirect tools and csv import/export</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Ai-powered redirect suggestions</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Advanced analytics dashboard</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Historical data tracking for 12 months</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Priority support and response within 24h</p>
+            </li>
+            <li>
+              <img src="true.png" alt="true" class="trueIcon" />
+              <p>Coustom redirect rules and pattern</p>
+            </li>
+          </ul>
+          <button class="orangebtn">Start 14-day Trial</button>
+          <button class="clearbtn">No credit card required</button>
+        </div>
+        <div class="popular">
+          <p>Most popular</p>
+        </div>
+      </div>
+    </main>
+    <script>
+      document.getElementById("monthly").addEventListener("click", myFunction);
+      document.getElementById("annual").addEventListener("click", myFunction);
+      function myFunction() {
+        var x = document.getElementById("toggle");
+        if (x.style.right === "66px") {
+          x.style.right = "-53px";
+          x.width = "130px";
+          document.getElementById("monthly").style.color="black";
+          document.getElementById("annual").style.color="white";
+        } else {
+            console.log("else");
+          x.style.right = "66px";
+          x.width = "120px";
+          document.getElementById("monthly").style.color="white";
+          document.getElementById("annual").style.color="black";
+        }
+      }
+    </script>
+  </body>
+</html>

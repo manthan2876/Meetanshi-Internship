@@ -1,0 +1,219 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 1px 1px 5px rgb(181, 181, 181);
+}
+.logo{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+.linkIcon{
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+.options ul{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+header li{
+    list-style: none;
+    font-weight: 500;
+}
+.rightNav{
+    display: flex;
+    align-items: center;
+}
+.searchIcon{
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+.rightNav p{
+    margin:0 10px 0 5px;
+    font-weight: 500;
+}
+.demobtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 5px;
+    color: white;
+    background-color: orange;
+    border: none;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background: rgb(244, 244, 244);
+    position: relative;
+}
+.text1{
+     margin: 10px 0;
+     color: rgb(87, 2, 156);
+     font-size: 15px;
+     font-weight: 600;
+}
+.text3{
+     margin: 10px 0 20px 0;
+     font-size: 15px;
+}
+.shutter{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 4px;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 30px;
+    height: 35px;
+    margin: 10px 0;
+    font-size: 12px;
+    background: white;
+    position: relative;
+    width: 260px;
+}
+.monthly{
+    background: none;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 30px;
+    height: 26px;
+    margin: 3px 3px 2px 0;
+    width: 80px;
+    text-align: center;
+    border: none;
+    transition: .4s;
+    z-index: 1;
+}
+/* .monthly:hover{
+    background: rgb(223, 222, 222);
+    color: rgb(244, 244, 244);
+    padding: 3px 5px;
+    border-radius: 30px;
+    height: 26px;
+    margin: 3px 3px 2px 0;
+    width: 80px;
+    text-align: center;
+    border: none;
+    transition: .4s;
+    z-index: 3;
+} */
+.annual{
+    background: none;
+    color: black;
+    padding: 4px 5px;
+    border-radius: 30px;
+    height: 26px;
+    margin: 3px 3px 2px 0;
+    text-align: center;
+    border: none;
+    transition: .4s;
+    z-index: 1;
+}
+/* .annual:hover{
+    background: rgb(223, 222, 222);
+    color: black;
+    padding: 4px 5px;
+    border-radius: 30px;
+    height: 26px;
+    margin: 3px 3px 2px 0;
+    text-align: center;
+    border: none;
+    transition: .4s;
+    z-index: 3;
+} */
+.toggle{
+    background: black;
+    height: 26px;
+    width: 120px;
+    position: relative;
+    bottom: 40px;
+    right: 66px;
+    z-index: 0;
+    border-radius: 30px;
+    transition: .4s;
+}
+.cardContainer{
+    position: relative;
+    display: flex;
+    padding: 20px;
+}
+.card1, .card2{
+    box-shadow: 1px 1px 5px rgb(181, 181, 181);
+    border-radius: 10px;
+    margin: 0 10px;
+    padding: 15px;
+    background: white;
+    width: 400px;
+}
+.amountContainer{
+    display: flex;
+    align-items: baseline;
+    padding: 10px 0;
+}
+.texts{
+    font-size: 12px;
+    margin-left: 20px;
+}
+.card1 p, .card2 p{
+    padding: 5px 0;
+}
+li{
+    list-style: none;
+    padding: 5px 0;
+}
+li p{
+    display: inline;
+    font-weight: 600;
+}
+.falseText{
+    font-weight: 400;
+}
+.falseIcon, .trueIcon{
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+}
+.orangebtn, .clearbtn{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    font-weight: 500;
+}
+.orangebtn{
+    color: white;
+    background-color: orange;
+    border: none;
+}
+.clearbtn{
+    border: 0.5px solid rgb(219, 219, 219);
+    background: white;
+}
+.popular{
+    background: orange;
+    height: 25px;
+    width: 100px;
+    padding: 3px;
+    border-radius: 15px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+}

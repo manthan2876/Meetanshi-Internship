@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.readyContainer{
+    background: black;
+    color: white;
+    text-align: center;
+    width: 70%;
+    margin: 20px 10px;
+    border-radius: 10px;
+}
+.readyContainer h1, .readyContainer p, .bottomContainer{
+    padding: 20px 0;
+}
+.trialbtn, .explorebtn{
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px;
+}
+.trialbtn{
+    color: white;
+    background-color: orange;
+}
+.bottomContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.bottomContainer h3{
+    padding: 10px 0;
+}
+.container1{
+    width: 40%;
+    margin: 0 20px;
+}
+.container2, .container3, .container4{
+    width: 20%;
+    margin: 0 20px;
+} 
+li{
+    list-style: none;
+    color: gray;
+}
