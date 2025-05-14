@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gradiant-generator.css">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="btnContainer">
+            <button id="leftbtn" class="leftbtn">#000 </button>
+            <button id="rightbtn" class="rightbtn">#FFF</button>
+        </div>
+        <p>Copy your gradiant</p>
+        <div class="textContainer">
+            <p id="colortext">background-image: linear-gradiant(to right,#000,#fff)</p>
+        </div>
+    </section>
+    <script>
+        let color1 = "#000"
+        let color2 = "#fff"
+
+        document.getElementById("leftbtn").addEventListener("click", handlebtn1);
+        document.getElementById("rightbtn").addEventListener("click", handlebtn2);
+
+        function generateRendomColor(){
+            color = "#";
+            let hexaColors = "0123456789abcdef"
+            for(let i=0; i<6; i++){
+                color = color + hexaColors[Math.floor(Math.random()*16)];
+            }
+            return color;
+        }
+
+        function handlebtn1(){
+            btn1 = document.getElementById("leftbtn");
+            color1 = generateRendomColor();
+            btn1.innerText = color1;
+            document.body.style.backgroundImage = `linear-gradient(to right, ${color1}, ${color2})`;
+            document.getElementById("colortext").innerText = `background-image: linear-gradiant(to right,${color1},${color2})`;
+        }
+
+        function handlebtn2(){
+            btn2 = document.getElementById("rightbtn");
+            color2 = generateRendomColor();
+            btn2.innerText = color2;
+            document.body.style.backgroundImage = `linear-gradient(to right, ${color1}, ${color2})`;
+            document.getElementById("colortext").innerText = `background-image: linear-gradiant(to right,${color1},${color2})`;
+        }
+
+        document.getElementById("colortext").addEventListener("click", () => {
+            navigator.clipboard.writeText(`background-image: linear-gradiant(to right,${color1},${color2})`);
+        })
+    </script>
+</body>
+</html>

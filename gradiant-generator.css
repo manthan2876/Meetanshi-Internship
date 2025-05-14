@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+body{
+    background-image: linear-gradient(to right, #000, #fff);
+}
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.btnContainer{
+    margin: 1.5rem 0;
+}
+.leftbtn, .rightbtn{
+    width: 150px;
+    height: 40px;
+    margin: 0 .5rem;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px rgb(213, 213, 213);
+}
+.leftbtn{
+    background: #000;
+    color: #fff;
+}
+.rightbtn{
+    background: #fff;
+    color: #000;
+}
+section p{
+    margin: .5rem 0;
+    color: #fff;
+}
+.textContainer{
+    margin: 1rem 0;
+    color: #fff;
+    width: 500px;
+    height: 80px;
+    box-shadow: 1px 1px 5px rgb(213, 213, 213);
+    text-align: center;
+    border-left: solid 2px #fff;
+}
