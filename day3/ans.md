@@ -51,4 +51,84 @@
     } else {  
         console.log("Year is not leap year");  
     }
+(9) let planet = prompt("Enter planet number:");
+    console.log(typeof planet);
+    switch(planet){
+        case "1":
+            console.log("Distance of Mercury from sun is 57,900,000.");
+            break;
+        case "2":
+            console.log("Distance of Venus from sun is 108,200,000.");
+            break;
+        case "3":
+            console.log("Distance of Earth from sun is 149,600,000.");
+            break;
+        case "4":
+            console.log("Distance of Mars from sun is 227,900,000.");
+            break;
+        case "5":
+            console.log("Distance of Jupiter from sun is 778,600,000.");
+            break;
+        case "6":
+            console.log("Distance of Saturn from sun is 1,433,500,000.");
+            break;
+        case "7":
+            console.log("Distance of Uranus from sun is 2,872,500,000.");
+            break;
+        case "8":
+            console.log("Distance of Neptune from sun is 4,495,100,000.");
+            break;
+        default:
+            console.log("Enter valid planet number");
+    }
+(10)let inputString = prompt("Enter first number:");
+    const num1 = parseInt(inputString, 10);
+    inputString = prompt("Enter second number:");
+    const num2 = parseInt(inputString, 10);
+    inputString = prompt("Enter third number:");
+    const num3 = parseInt(inputString, 10);
+    if(num1>num2 && num1>num3){
+        console.log(num1," is biggest number.");
+    } else {
+        if(num2>num3){
+            console.log(num2," is biggest number.");
+        } else {
+            console.log(num3," is biggest number.");
+        }
+    }
+(11)function getZodiacSign(day, month) {
+        if ((month == 1 && day <= 20) || (month == 12 && day >= 22)) {
+            return "♑";
+        } else if ((month == 1 && day >= 21) || (month == 2 && day <= 19)) {
+            return "♒";
+        } else if ((month == 2 && day >= 20) || (month == 3 && day <= 20)) {
+            return "♓";
+        } else if ((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+            return "♈";
+        } else if ((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+            return "♉";
+        } else if ((month == 5 && day >= 21) || (month == 6 && day <= 21)) {
+            return "♊";
+        } else if ((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+            return "♋";
+        } else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) {
+            return "♌";
+        } else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) {
+            return "♍";
+        } else if ((month == 9 && day >= 23) || (month == 10 && day <= 23)) {
+            return "♎";
+        } else if ((month == 10 && day >= 24) || (month == 11 && day <= 21)) {
+            return "♏";
+        } else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) {
+            return "♐";
+        }
+    }
+    const day = parseInt(prompt("Enter the day of your birth:"));
+    const month = parseInt(prompt("Enter the month of your birth (1-12):"));
+    if ((isNaN(day) || isNaN(month) || day < 1 || day > 31 || month < 1 || month > 12) || ((day==30 || day==31) && month == 2)) {
+        console.log("Invalid date input.");
+    } else {
+        const sign = getZodiacSign(day, month);
+        console.log("Your zodiac sign is: " + sign);
+    }
 ```
