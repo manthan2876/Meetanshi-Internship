@@ -1,4 +1,4 @@
-# Questions
+## Questions
 
 (1) What is the difference between var, let, and const in JavaScript?  
 (2) How do you declare a variable in JavaScript? Give an example.  
@@ -7,9 +7,10 @@
 (5) learn document object in javascript.  
 (6) Write a program to check whether a given number is divisible by both 3 and 5.  
 (7) What is the difference between == and === in JavaScript?  
-(8) Write a JavaScript program to check if a given year is a leap year or not.
+(8) Write a JavaScript program to check if a given year is a leap year or not.  
 
 ## answers
+```markdown
 (1)  var's scope: function scoped, can be reassign and redeclare.  
     let's scope: block scoped, can be reassign but redeclaration is not possible.  
     const's scope: block scoped, can't be reassign and redeclare.  
@@ -49,4 +50,5 @@
         console.log("Year is leap year");  
     } else {  
         console.log("Year is not leap year");  
-    }  
+    }
+```
