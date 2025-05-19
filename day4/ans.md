@@ -30,6 +30,10 @@
     Write a program that checks if a given year is a leap year using logical conditions:
     The year must be divisible by 4.
     If the year is divisible by 100, it must also be divisible by 400.
+(11)Write a program to print first 50 prime number using while loop
+(12)Write a program to print 5 perfect number using for loop 
+(13)Take 2 number from user and start and end and print multiplication table between it 
+(14)Create a chess board using for loop with user give number of boxes in each line 
 ```
 
 ## answers
@@ -85,4 +89,62 @@
     temp>30 ? console.log("Hot") : console.log("Cool");
 (10)let year = parseInt(prompt("Enter year: "));
     year % 400 == 0 ? console.log("Year is leap year") : year % 100 == 0 ? console.log("Year is not leap year") : year % 4 == 0 ? console.log("Year is leap year") : console.log("Year is not leap year");
+(11)function checkPrime(num) {
+        let flag = true;
+        if(num<2) flag = false;
+        let i=2;
+        while(i<=num/2){
+            if(num%i == 0) {
+                flag = false;
+                break;
+            }
+            i++;
+        }
+        return flag;
+    }
+    let j=0;
+    while(j<=50){
+        if(checkPrime(j))
+            console.log(j);
+        j++;
+    }
+(12)function checkPrefect(num){
+        let result =0;
+        for(let i=1;i<=num/2;i++){
+            if(num%i==0){
+                result+=i;
+            }
+        }
+        return result===num ? true : false;
+    }
+    let count = 0;
+    for(let j=1;count<6;j++){
+        if(checkPrefect(j)){
+            console.log(j);
+            count++;
+        }
+        console.log(j);
+    }
+(13)const num1 = parseInt(prompt("Enter first number: "));
+    const num2 = parseInt(prompt("Enter second number: "));
+    console.log("multiplication table of ",num1,"X",num2);
+    for(let i=1;i<=num1;i++){
+        let str ="";
+        for(let j=1;j<=num2;j++){
+            str += `${i*j} `;
+        }
+        console.log(str);
+    }
+(14)const row = parseInt(prompt("Enter number of row: "));
+    let flag= false;
+    for(let i = 0; i<row;i++){
+        let str = "";
+        const boxes = parseInt(prompt("Enter number of boxes for row : "));
+        for(let j=0; j<boxes;j++){
+            str+=`${flag ? 1 : 0} `;
+            flag = !flag;
+        }
+        console.log(str);
+        flag = boxes%2!==0 ? flag : !flag;
+    }
 ```
