@@ -1,5 +1,5 @@
 ## Questions
-
+```
 (1) What is the difference between var, let, and const in JavaScript?  
 (2) How do you declare a variable in JavaScript? Give an example.  
 (3) Write a JavaScript program to check if a number is positive, negative, or zero using an if-else statement.  
@@ -8,7 +8,14 @@
 (6) Write a program to check whether a given number is divisible by both 3 and 5.  
 (7) What is the difference between == and === in JavaScript?  
 (8) Write a JavaScript program to check if a given year is a leap year or not.  
-
+(9) Write a programe to findout distance of planet from sun in km
+    https://www.jpl.nasa.gov/_edu/pdfs/scaless_reference.pdf
+    take input from user as planet number for eg 1, 2,3,4,5,6
+(10)Write a programe to findout greatest number outof given 3 number take 3 number from user  
+(11)Write a programe to findout zodiac sign of user 
+    https://thelagirl.com/wp-content/uploads/2023/01/Sign-1.png
+    take users birth date as input from user  
+```
 ## answers
 ```markdown
 (1)  var's scope: function scoped, can be reassign and redeclare.  
