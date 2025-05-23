@@ -53,8 +53,7 @@
     } catch (e) {
     console.error("Parsing failed:", e.message);
     }
-(3) task3
-    console.log(null == undefined);
+(3) console.log(null == undefined);
     console.log(null === undefined);
     beacuse "==" will check only values while "===" will check both value and type
 (4) const user = { name: "David", address: { country: "Canada" } };
