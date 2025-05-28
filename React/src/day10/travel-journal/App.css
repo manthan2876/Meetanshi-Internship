@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+header {
+    background: red;
+    height: 3rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    gap: .5rem;
+    font-size: 1.5rem;
+}
+
+.nav-title {
+    font-size: 1rem;
+}
+
+main {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardContainer {
+    width: 40%;
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.imageContainer {
+    width: 30%;
+}
+.img{
+    height: 180px;
+    border-radius: .5rem;
+}
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.heading {
+    display: flex;
+    gap: 1rem;
+}
+.locationIcon{
+    color: red;
+}
+.heading a{
+    color: gray;
+}
+.dateText{
+    font-weight: 600;
+}
