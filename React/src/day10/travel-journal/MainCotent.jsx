@@ -4,7 +4,7 @@ function MainContent() {
     return (
         <main>
             {
-                data.map(element => <Card crtCountry={element.country.toUpperCase()} crtLocation={element.location} crtImgUrl={element.imgUrl} crtLink={element.link} crtStartDate={element.startDate} crtEndDate={element.endDate} crtDescription={element.description} />)
+                data.map(element => <Card key={element.id} {...element}/>)
             }
         </main>
     )

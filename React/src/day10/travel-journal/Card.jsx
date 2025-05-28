@@ -1,25 +1,22 @@
-// import { data } from "./data";
 import { FaLocationDot } from "react-icons/fa6";
 
-function Card({ crtCountry, crtLocation, crtImgUrl, crtLink, crtStartDate, crtEndDate, crtDescription}) {
-    return (
-        <>
-            <div className="cardContainer">
-                <div className="imageContainer">
-                    <img src={crtImgUrl} alt={crtLocation} className="img"/>
-                </div>
-                <div className="textContainer">
-                    <div className="heading">
-                        <p><FaLocationDot className="locationIcon"/>{crtCountry}</p>
-                        <a href={crtLink}>View on google Map</a>
-                    </div>
-                    <h1>{crtLocation}</h1>
-                    <p className="dateText">{crtStartDate} - {crtEndDate}</p>
-                    <p>{crtDescription}</p>
-                </div>
-            </div>
-        </>
-    )
+function Card({ country, location, imgUrl, link, startDate, endDate, description }) {
+  return (
+    <div className="card-container">
+      <div className="image-container">
+        <img src={imgUrl} alt={location} />
+      </div>
+      <div className="text-container">
+        <div className="heading">
+          <span><FaLocationDot className="location-icon" />{country}</span>
+          <a href={link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+        </div>
+        <h1>{location}</h1>
+        <p className="date-text">{startDate} - {endDate}</p>
+        <p>{description}</p>
+      </div>
+    </div>
+  );
 }
 
 export default Card;
