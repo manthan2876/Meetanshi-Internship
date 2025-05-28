@@ -1,0 +1,24 @@
+.chef-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(80, 0, 120, 0.10);
+  border: 2px solid #eee;
+  border-bottom: none;
+  height: 64px;
+  position: relative;
+  z-index: 1;
+}
+
+.chef-icon {
+  font-size: 2rem;
+  margin-right: 0.7rem;
+}
+
+.chef-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #222;
+  font-family: 'Inter', Arial, sans-serif;
+}
