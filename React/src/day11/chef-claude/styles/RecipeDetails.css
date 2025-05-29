@@ -1,0 +1,77 @@
+section {
+  max-width: 680px;
+  margin: 2.5rem auto 0 auto;
+  padding: 0 1.2rem;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+section > h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e26a3d;
+  margin-bottom: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+.suggested-recipe-container {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(80,0,120,0.10);
+  border: 1.5px solid #eee;
+  padding: 2rem 1.5rem 2.5rem 1.5rem;
+  color: #22223b;
+  margin-bottom: 2.5rem;
+}
+
+.suggested-recipe-container p {
+  font-size: 1.08rem;
+  margin-bottom: 1.1rem;
+  color: #3b3b3b;
+}
+
+.suggested-recipe-container h3 {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #181818;
+  margin: 1.1rem 0 0.7rem 0;
+}
+
+.suggested-recipe-container strong {
+  display: block;
+  margin: 1.2rem 0 0.5rem 0;
+  color: #e26a3d;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+}
+
+.suggested-recipe-container ul,
+.suggested-recipe-container ol {
+  margin-left: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: #444;
+  font-size: 1.03rem;
+}
+
+.suggested-recipe-container ul li,
+.suggested-recipe-container ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.suggested-recipe-container ul {
+  list-style: disc inside;
+}
+
+.suggested-recipe-container ol {
+  list-style: decimal inside;
+}
+
+@media (max-width: 600px) {
+  .suggested-recipe-container {
+    padding: 1.2rem 0.7rem 1.5rem 0.7rem;
+  }
+  section {
+    padding: 0 0.3rem;
+  }
+}

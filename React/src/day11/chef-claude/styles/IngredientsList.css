@@ -61,6 +61,7 @@
   padding: 0.7rem 1.3rem;
   cursor: pointer;
   transition: background 0.18s;
+  width: 10rem;
   margin-left: 2rem;
   box-shadow: 0 1px 4px rgba(80,0,120,0.06);
 }

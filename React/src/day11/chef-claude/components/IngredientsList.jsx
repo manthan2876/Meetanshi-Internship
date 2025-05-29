@@ -1,6 +1,6 @@
 import "../styles/IngredientsList.css";
 
-function IngredientsList({ingredientsList}) {
+function IngredientsList({ingredientsList, handleRecipeBtn}) {
   return (
     <div className="ingredients-wrapper">
       <h2 className="ingredients-title">Ingredients on hand:</h2>
@@ -16,7 +16,7 @@ function IngredientsList({ingredientsList}) {
             Generate a recipe from your list of ingredients.
           </div>
         </div>
-        <button className="cta-btn">
+        <button className="cta-btn" onClick={handleRecipeBtn}>
           Get a recipe
         </button>
       </div>
