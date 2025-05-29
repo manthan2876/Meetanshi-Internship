@@ -1,0 +1,46 @@
+.input-row {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.input-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 1rem;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.meme-btn {
+  width: 100%;
+  padding: 12px 0;
+  margin: 16px 0 20px 0;
+  background: linear-gradient(90deg, #a259ff 0%, #3f0fff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.meme-btn:hover {
+  background: linear-gradient(90deg, #3f0fff 0%, #a259ff 100%);
+}

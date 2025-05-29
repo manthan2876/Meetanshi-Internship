@@ -1,0 +1,43 @@
+.meme-image-box {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #222;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.meme-img {
+  width: 100%;
+  height: fit-content;
+  object-fit: cover;
+  display: block;
+}
+
+.meme-text {
+  position: absolute;
+  left: 50%;
+  width: 90%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 2rem;
+  font-family: Impact, Arial Black, Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 8px #000, 0 0 2px #000;
+  letter-spacing: 2px;
+  pointer-events: none;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.meme-text.top {
+  top: 16px;
+}
+
+.meme-text.bottom {
+  bottom: 16px;
+}
