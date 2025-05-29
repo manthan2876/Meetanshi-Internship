@@ -1,6 +1,6 @@
 import "../styles/IngredientsList.css";
 
-function IngredientsList({ingredientsList, handleRecipeBtn}) {
+function IngredientsList({ingredientsList, handleRecipeBtn, ref}) {
   return (
     <div className="ingredients-wrapper">
       <h2 className="ingredients-title">Ingredients on hand:</h2>
@@ -9,7 +9,7 @@ function IngredientsList({ingredientsList, handleRecipeBtn}) {
           <li key={i}>{item}</li>
         ))}
       </ul>
-      <div className="recipe-cta">
+      <div className="recipe-cta" ref={ref}>
         <div>
           <div className="cta-title">Ready for a recipe?</div>
           <div className="cta-desc">

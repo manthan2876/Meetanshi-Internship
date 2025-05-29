@@ -1,7 +1,7 @@
 import InputBox from "./InputBox";
 import IngredientsList from "./IngredientsList";
 import RecipeDetails from "./RecipeDetails";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getRecipeFromMistral } from "../ai.js";
 
 function MainContent() {
@@ -11,8 +11,14 @@ function MainContent() {
         if (ingredient.trim() !== "") {
             setIngredients([...ingredients, ingredient]);
         }
-        e.target.previousSibling.value = "";
+        e.target.previousSibling.value ="";
     }
+    const reference = useRef(null);
+    useEffect(() => {
+        if(recipeShown !== "" && reference !== null){
+            reference.current.scrollIntoView({behavior: "smooth"});
+        }
+    },[recipeShown])
     async function handleRecipe() {
         const recipe = await getRecipeFromMistral(ingredients);
         setRecipeShown(recipe);
@@ -20,7 +26,7 @@ function MainContent() {
     return (
         <main>
             <InputBox handleInputIngredients={handleIngredients} />
-            {ingredients.length ? <IngredientsList ingredientsList={ingredients} handleRecipeBtn={handleRecipe} /> : null}
+            {ingredients.length ? <IngredientsList ingredientsList={ingredients} handleRecipeBtn={handleRecipe} ref={reference} /> : null}
             {recipeShown ? <RecipeDetails recipe={recipeShown}/> : null}
         </main>
     )
