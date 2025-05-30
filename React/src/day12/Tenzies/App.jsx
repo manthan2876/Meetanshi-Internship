@@ -80,6 +80,11 @@ function App() {
     }
   }, [dice]);
 
+  const btnRef = React.useRef()
+
+  React.useEffect(() => {
+    if(tenzies) btnRef.current.focus();
+  },[tenzies])
 
   const diceElements = dice.map(die => (
     <Die
@@ -113,7 +118,7 @@ function App() {
         <div className="dice-container">
           {diceElements}
         </div>
-        <button className="roll-button" onClick={rollDice}>
+        <button className="roll-button" onClick={rollDice} ref={btnRef}>
           {tenzies ? "New Game" : "Roll"}
         </button>
       </main>
