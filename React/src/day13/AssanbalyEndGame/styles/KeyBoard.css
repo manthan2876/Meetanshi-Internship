@@ -1,0 +1,31 @@
+.keys-container{
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0;
+    width: 30%;
+}
+.key-container{
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border: none;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: .2rem;
+}
+.key-container:disabled{
+    opacity: .5;
+    cursor: not-allowed;
+}
+.correct{
+    background: green;
+}
+.wrong{
+    background: red;
+}

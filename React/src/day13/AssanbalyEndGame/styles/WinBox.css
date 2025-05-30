@@ -1,0 +1,15 @@
+.Win-container{
+    width: 30%;
+    background: green;
+    color: white;
+    padding: .5rem 0;
+    margin-bottom: .5rem;
+}
+.win-text-main{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.win-text-sub{
+    text-align: center;
+    font-size: 1rem;
+}
