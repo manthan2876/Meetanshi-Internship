@@ -19,27 +19,33 @@ export function MainContent() {
     function handleDelete(e, data) {
         setStudents(students.filter((crtStudent) => crtStudent.studentId !== data.studentId));
     }
-    function handlePresent(id){
-        setStudents(students => {
-            return students.map((crtStudent) => {
-                return crtStudent.studentId === id ? {...crtStudent, isPresent: !crtStudent.isPresent} : crtStudent 
-            })
-        })
-    }
     useEffect(() => {
         localStorage.setItem("reactStudentForm", JSON.stringify(students));
     }, [students]);
     return (
         <>
-            <h1 className="text-[2rem] font-semibold text-white mt-[5rem]">Student Form</h1>
-            <main>
+            <h1 className="text-[2rem] font-semibold mt-[5rem] text-center mb-8">Student List</h1>
+            <main className="flex flex-col items-center">
                 <StudentInput handleInputStudent={handleStudents} />
-                <div id="studentList">
-                    {students.map((crtStudent, index) => {
-                        return (
-                            <StudentList key={index} crtData={crtStudent} handlePresentBtn={handlePresent} handleDeletebtn={handleDelete} />
-                        );
-                    })}
+                <div className="w-full max-w-3xl mt-8 bg-white shadow-md rounded-lg overflow-hidden">
+                    <table className="min-w-full table-auto">
+                        <thead>
+                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
+                                <th className="py-3 px-6 text-center">Student ID</th>
+                                <th className="py-3 px-6 text-center">Name</th>
+                                <th className="py-3 px-6 text-center">Branch</th>
+                                <th className="py-3 px-6 text-center">Present</th>
+                                <th className="py-3 px-6 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-600 text-sm font-light">
+                            {students.map((crtStudent, index) => {
+                                return (
+                                    <StudentList key={index} crtData={crtStudent} handleDeletebtn={handleDelete} />
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </>
