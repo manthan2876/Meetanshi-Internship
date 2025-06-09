@@ -1,6 +1,6 @@
-import { MdDeleteForever, MdClose, MdCheck } from "react-icons/md";
+import { MdDeleteForever, MdClose, MdCheck, MdEdit } from "react-icons/md";
 
-export function StudentList({ crtData, handleDeletebtn }) {
+export function StudentList({ crtData, handleDeletebtn, handleEditbtn }) {
     return (
         <tr className={`border-b border-gray-200 ${crtData.isPresent ? "bg-green-100" : "bg-red-100"}`}>
             <td className="py-3 px-6 text-center whitespace-nowrap">{crtData.studentId}</td>
@@ -12,8 +12,16 @@ export function StudentList({ crtData, handleDeletebtn }) {
             <td className="py-3 px-6 text-center">
                 <div className="flex items-center justify-center">
                     <button
+                        className="text-xl mr-2 transform hover:scale-110 text-blue-500"
+                        onClick={() => handleEditbtn(crtData)}
+                        title="Edit"
+                    >
+                        <MdEdit />
+                    </button>
+                    <button
                         className="text-xl mr-2 transform hover:scale-110 text-red-500"
                         onClick={() => handleDeletebtn(crtData)}
+                        title="Delete"
                     >
                         <MdDeleteForever />
                     </button>

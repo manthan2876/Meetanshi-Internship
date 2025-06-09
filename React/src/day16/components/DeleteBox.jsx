@@ -1,6 +1,6 @@
 export function DeleteBox({ student, onConfirm, onCancel }) {
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center z-50">
             <div className="p-8 border shadow-lg items-center rounded-md bg-white">
                 <h3 className="text-lg font-bold mb-4">Confirm Deletion</h3>
                 {student && (

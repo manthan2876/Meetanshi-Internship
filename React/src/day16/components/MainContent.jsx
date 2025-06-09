@@ -11,25 +11,31 @@ export function MainContent() {
     const [showDeleteBox, setShowDeleteBox] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState(null);
 
-    const handleDeleteClick = ((student) => {
+    // Edit feature states
+    const [studentToEdit, setStudentToEdit] = useState(null);
+    const [showEditBox, setShowEditBox] = useState(false);
+
+    // Delete handlers
+    const handleDeleteClick = (student) => {
         setStudentToDelete(student);
         setShowDeleteBox(true);
-    }, []);
+    };
 
-    const handleConfirmDelete = (() => {
+    const handleConfirmDelete = () => {
         setStudents(prevStudents => 
             prevStudents.filter((crtStudent) => crtStudent.studentId !== studentToDelete.studentId)
         );
         setShowDeleteBox(false);
         setStudentToDelete(null);
-    }, [studentToDelete]);
+    };
 
-    const handleCancelDelete = (() => {
+    const handleCancelDelete = () => {
         setShowDeleteBox(false);
         setStudentToDelete(null);
-    }, []);
+    };
 
-    const handleStudents = ((e, student) => {
+    // Add handler
+    const handleStudents = (e, student) => {
         if (student.studentId !== "" && student.name !== "" && student.branch !== "") {
             const studentList = students.filter((crtStudent) => crtStudent.studentId === student.studentId);
             if (studentList.length === 0) {
@@ -41,7 +47,28 @@ export function MainContent() {
             }
         }
         return false;
-    }, [students]);
+    };
+
+    // Edit handlers
+    const handleEditClick = (student) => {
+        setStudentToEdit(student);
+        setShowEditBox(true);
+    };
+
+    const handleConfirmEdit = (updatedStudent) => {
+        setStudents(prevStudents =>
+            prevStudents.map(stu =>
+                stu.studentId === updatedStudent.studentId ? updatedStudent : stu
+            )
+        );
+        setShowEditBox(false);
+        setStudentToEdit(null);
+    };
+
+    const handleCancelEdit = () => {
+        setShowEditBox(false);
+        setStudentToEdit(null);
+    };
 
     useEffect(() => {
         localStorage.setItem("reactStudentForm", JSON.stringify(students));
@@ -58,6 +85,16 @@ export function MainContent() {
                         onConfirm={handleConfirmDelete}
                         onCancel={handleCancelDelete}
                     />
+                )}
+                {showEditBox && (
+                    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center z-50">
+                        <StudentInput
+                            editMode={true}
+                            initialStudent={studentToEdit}
+                            onEditConfirm={handleConfirmEdit}
+                            onEditCancel={handleCancelEdit}
+                        />
+                    </div>
                 )}
                 <div className="w-full max-w-3xl mt-8 bg-white shadow-md rounded-lg overflow-hidden">
                     <table className="min-w-full table-auto">
@@ -83,6 +120,7 @@ export function MainContent() {
                                         key={crtStudent.studentId}
                                         crtData={crtStudent}
                                         handleDeletebtn={handleDeleteClick}
+                                        handleEditbtn={handleEditClick}
                                     />
                                 ))
                             )}
