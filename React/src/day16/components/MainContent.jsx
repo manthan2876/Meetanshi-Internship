@@ -1,32 +1,64 @@
 import { useState, useEffect } from "react";
 import { StudentInput } from "./StudentInput";
 import { StudentList } from "./StudentList";
+import { DeleteBox } from "./DeleteBox";
 
 export function MainContent() {
     const [students, setStudents] = useState(() => {
         const data = localStorage.getItem("reactStudentForm");
         return data ? JSON.parse(data) : [];
     });
+    const [showDeleteBox, setShowDeleteBox] = useState(false);
+    const [studentToDelete, setStudentToDelete] = useState(null);
 
-    function handleStudents(e, student) {
+    const handleDeleteClick = ((student) => {
+        setStudentToDelete(student);
+        setShowDeleteBox(true);
+    }, []);
+
+    const handleConfirmDelete = (() => {
+        setStudents(prevStudents => 
+            prevStudents.filter((crtStudent) => crtStudent.studentId !== studentToDelete.studentId)
+        );
+        setShowDeleteBox(false);
+        setStudentToDelete(null);
+    }, [studentToDelete]);
+
+    const handleCancelDelete = (() => {
+        setShowDeleteBox(false);
+        setStudentToDelete(null);
+    }, []);
+
+    const handleStudents = ((e, student) => {
         if (student.studentId !== "" && student.name !== "" && student.branch !== "") {
-            const stusentList = students.filter((crtStudent) => crtStudent.studentId === student.studentId);
-            if(stusentList.length === 0){
-                setStudents([...students,student]);
+            const studentList = students.filter((crtStudent) => crtStudent.studentId === student.studentId);
+            if (studentList.length === 0) {
+                setStudents(prevStudents => [...prevStudents, student]);
+                return true;
+            } else {
+                alert("Student with this ID already exists!");
+                return false;
             }
         }
-    }
-    function handleDelete(e, data) {
-        setStudents(students.filter((crtStudent) => crtStudent.studentId !== data.studentId));
-    }
+        return false;
+    }, [students]);
+
     useEffect(() => {
         localStorage.setItem("reactStudentForm", JSON.stringify(students));
     }, [students]);
+
     return (
         <>
-            <h1 className="text-[2rem] font-semibold mt-[5rem] text-center mb-8">Student List</h1>
+            <h1 className="text-[2rem] font-semibold mt-[3.5rem] text-center mb-8">Student List</h1>
             <main className="flex flex-col items-center">
                 <StudentInput handleInputStudent={handleStudents} />
+                {showDeleteBox && (
+                    <DeleteBox
+                        student={studentToDelete}
+                        onConfirm={handleConfirmDelete}
+                        onCancel={handleCancelDelete}
+                    />
+                )}
                 <div className="w-full max-w-3xl mt-8 bg-white shadow-md rounded-lg overflow-hidden">
                     <table className="min-w-full table-auto">
                         <thead>
@@ -39,11 +71,21 @@ export function MainContent() {
                             </tr>
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">
-                            {students.map((crtStudent, index) => {
-                                return (
-                                    <StudentList key={index} crtData={crtStudent} handleDeletebtn={handleDelete} />
-                                );
-                            })}
+                            {students.length === 0 ? (
+                                <tr>
+                                    <td colSpan="5" className="py-8 text-center text-gray-500">
+                                        No students added yet
+                                    </td>
+                                </tr>
+                            ) : (
+                                students.map((crtStudent) => (
+                                    <StudentList
+                                        key={crtStudent.studentId}
+                                        crtData={crtStudent}
+                                        handleDeletebtn={handleDeleteClick}
+                                    />
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
