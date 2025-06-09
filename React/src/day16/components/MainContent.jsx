@@ -11,14 +11,11 @@ export function MainContent() {
     const [showDeleteBox, setShowDeleteBox] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState(null);
 
-    // Edit feature states
     const [studentToEdit, setStudentToEdit] = useState(null);
     const [showEditBox, setShowEditBox] = useState(false);
 
-    // Error state for duplicate student ID
     const [duplicateError, setDuplicateError] = useState("");
 
-    // Delete handlers
     const handleDeleteClick = (student) => {
         setStudentToDelete(student);
         setShowDeleteBox(true);
@@ -37,9 +34,8 @@ export function MainContent() {
         setStudentToDelete(null);
     };
 
-    // Add handler
     const handleStudents = (e, student) => {
-        setDuplicateError(""); // Reset error before checking
+        setDuplicateError("");
         if (student.studentId !== "" && student.name !== "" && student.branch !== "") {
             const studentList = students.filter((crtStudent) => crtStudent.studentId === student.studentId);
             if (studentList.length === 0) {
@@ -53,7 +49,6 @@ export function MainContent() {
         return false;
     };
 
-    // Edit handlers
     const handleEditClick = (student) => {
         setStudentToEdit(student);
         setShowEditBox(true);
