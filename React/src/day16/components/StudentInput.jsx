@@ -5,7 +5,9 @@ export function StudentInput({
     editMode = false,
     initialStudent = null,
     onEditConfirm,
-    onEditCancel
+    onEditCancel,
+    duplicateError = "",
+    clearDuplicateError = () => {},
 }) {
     const [student, setStudent] = useState(
         initialStudent || { studentId: "", name: "", branch: "", isPresent: false }
@@ -29,6 +31,9 @@ export function StudentInput({
                 ...prev,
                 [name]: ""
             }));
+        }
+        if (duplicateError) {
+            clearDuplicateError();
         }
     }
 
@@ -60,6 +65,12 @@ export function StudentInput({
 
     return (
         <div className="mb-8 p-6 bg-gray-100 rounded-lg shadow-md w-full max-w-sm">
+            {/* Error Dialog Box */}
+            {duplicateError && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded relative text-center">
+                    {duplicateError}
+                </div>
+            )}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="studentId" className="block text-gray-700 text-sm font-bold mb-2">Student ID:</label>

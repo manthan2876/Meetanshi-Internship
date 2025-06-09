@@ -15,6 +15,9 @@ export function MainContent() {
     const [studentToEdit, setStudentToEdit] = useState(null);
     const [showEditBox, setShowEditBox] = useState(false);
 
+    // Error state for duplicate student ID
+    const [duplicateError, setDuplicateError] = useState("");
+
     // Delete handlers
     const handleDeleteClick = (student) => {
         setStudentToDelete(student);
@@ -36,13 +39,14 @@ export function MainContent() {
 
     // Add handler
     const handleStudents = (e, student) => {
+        setDuplicateError(""); // Reset error before checking
         if (student.studentId !== "" && student.name !== "" && student.branch !== "") {
             const studentList = students.filter((crtStudent) => crtStudent.studentId === student.studentId);
             if (studentList.length === 0) {
                 setStudents(prevStudents => [...prevStudents, student]);
                 return true;
             } else {
-                alert("Student with this ID already exists!");
+                setDuplicateError("Student with this ID already exists!");
                 return false;
             }
         }
@@ -78,7 +82,11 @@ export function MainContent() {
         <>
             <h1 className="text-[2rem] font-semibold mt-[3.5rem] text-center mb-8">Student List</h1>
             <main className="flex flex-col items-center">
-                <StudentInput handleInputStudent={handleStudents} />
+                <StudentInput
+                    handleInputStudent={handleStudents}
+                    duplicateError={duplicateError}
+                    clearDuplicateError={() => setDuplicateError("")}
+                />
                 {showDeleteBox && (
                     <DeleteBox
                         student={studentToDelete}
