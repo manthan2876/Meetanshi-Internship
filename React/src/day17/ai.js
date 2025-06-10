@@ -40,7 +40,7 @@ Extract the following details and return them as a JSON object with these proper
 Only return valid JSON. Do not include any explanations, markdown, or code blocks.
 `;
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const apiKey = "AIzaSyBzAKZsi1fU98yV0IWtnZmmlqJbl9N7T8c";
 
 const ai = new GoogleGenAI({ apiKey });
 
