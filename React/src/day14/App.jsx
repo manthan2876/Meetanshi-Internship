@@ -7,7 +7,7 @@ export default function App() {
     <div className="min-h-screen flex bg-gray-100 gap-4 p-4">
       <Sidebar />
       <div className="flex-1 flex flex-col bg-white rounded-xl shadow overflow-hidden">
-        <Header />
+        <Header name="Rashford" active/>
         <Content />
       </div>
     </div>
