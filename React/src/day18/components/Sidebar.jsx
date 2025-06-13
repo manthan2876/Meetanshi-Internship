@@ -2,19 +2,63 @@ import { useState } from 'react';
 import { IoSearch } from "react-icons/io5";
 import { MdOutlinePushPin } from "react-icons/md";
 import { BiMessageRounded } from "react-icons/bi";
+import { FiPlus } from "react-icons/fi";
 import ChatPreview from "./ChatPreview";
-import SearchBox from './SearchBox';
+import AddChatDialog from './AddChatDialog'; // Import the new dialog component
 
-export default function Sidebar({ onSelectChat }) {
+export default function Sidebar({
+    chats,
+    onSelectChat,
+    onAddChat,
+    onArchive,
+    onMute,
+    onPin,
+    onMarkAsRead,
+    onMarkAsUnread,
+    onAddToFavorites,
+    onExitGroup,
+    onBlock,
+    onDeleteChat,
+    onUnpin, // Accept onUnpin prop
+}) {
     const [showSearch, setShowSearch] = useState(false);
+    const [filterType, setFilterType] = useState("all");
+    const [showAddChatDialog, setShowAddChatDialog] = useState(false); // State for dialog visibility
+    const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
     const handleSearchClick = () => {
         setShowSearch(!showSearch);
+        setSearchQuery(''); // Clear search query when hiding search
     };
+
+    const handleFilterClick = (type) => {
+        setFilterType(type);
+    };
+
+    const handleAddChatClick = () => {
+        setShowAddChatDialog(true); // Show the dialog
+    };
+
+    const handleCloseAddChatDialog = () => {
+        setShowAddChatDialog(false); // Hide the dialog
+    };
+
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const filteredChats = chats.filter(chat => {
+        const typeMatch = filterType === "all" || chat.type === filterType;
+        const searchMatch = chat.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return typeMatch && searchMatch;
+    });
+
+    const pinnedChats = filteredChats.filter(chat => chat.pinned);
+    const regularChats = filteredChats.filter(chat => !chat.pinned);
 
     return (
         <aside className="w-[25%] bg-white rounded-xl shadow py-4 px-2 flex flex-col gap-3 overflow-scroll">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mx-1">
                 <div className="flex items-center gap-4">
                     <div className="relative">
                         <img className="h-12 w-12 rounded-full mr-[1rem]" src="https://i.pravatar.cc/40" alt="User" />
@@ -24,13 +68,39 @@ export default function Sidebar({ onSelectChat }) {
                         <p className="text-sm text-gray-500">Info account</p>
                     </div>
                 </div>
-                <IoSearch className="text-2xl text-gray-400 mr-[1rem] cursor-pointer" onClick={handleSearchClick} />
+                <div className="flex items-center gap-2 mx-1">
+                    <IoSearch className="text-2xl text-gray-400 cursor-pointer" onClick={handleSearchClick} />
+                    <FiPlus className="text-2xl text-gray-400 cursor-pointer" onClick={handleAddChatClick} />
+                </div>
             </div>
-            {showSearch && <SearchBox />}
+            {showSearch && (
+                <input
+                    type="text"
+                    placeholder="Search chats..."
+                    className="mx-2 p-2 border rounded-md"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
+                />
+            )}
             <div className="bg-gray-200 flex justify-between p-2 rounded-full mx-2">
-                <span className="bg-white text-blue-400 font-semibold py-1 px-4 rounded-full w-fit text-center">All</span>
-                <span className="text-gray-500 font-semibold py-1 px-4 rounded-full w-fit text-center">Personal</span>
-                <span className="text-gray-500 font-semibold py-1 px-4 rounded-full w-fit text-center">Groups</span>
+                <span
+                    className={`font-semibold py-1 px-4 rounded-full w-fit text-center cursor-pointer ${filterType === "all" ? "bg-white text-blue-400" : "text-gray-500"}`}
+                    onClick={() => handleFilterClick("all")}
+                >
+                    All
+                </span>
+                <span
+                    className={`font-semibold py-1 px-4 rounded-full w-fit text-center cursor-pointer ${filterType === "personal" ? "bg-white text-blue-400" : "text-gray-500"}`}
+                    onClick={() => handleFilterClick("personal")}
+                >
+                    Personal
+                </span>
+                <span
+                    className={`font-semibold py-1 px-4 rounded-full w-fit text-center cursor-pointer ${filterType === "group" ? "bg-white text-blue-400" : "text-gray-500"}`}
+                    onClick={() => handleFilterClick("group")}
+                >
+                    Groups
+                </span>
             </div>
             <div>
                 <div className="flex justify-between items-center mx-[1rem]">
@@ -38,9 +108,23 @@ export default function Sidebar({ onSelectChat }) {
                     <MdOutlinePushPin className="text-gray-500 font-semibold" />
                 </div>
                 <div className="space-y-3">
-                    <ChatPreview name="Harry Maguire" message="You need to improve now" time="09:12 AM" image="https://i.pravatar.cc/41" pinned doubleTickblue active onClick={() => onSelectChat("Harry Maguire")} />
-                    <ChatPreview name="United Family 🔰" message="Rashford is typing..." time="06:25 AM" typing image="https://i.pravatar.cc/42" pinned onClick={() => onSelectChat("United Family 🔰")} />
-                    <ChatPreview name="Rasmus Højlund" message="Bos, I need to talk today" time="03:11 AM" unread image="https://i.pravatar.cc/43" pinned onClick={() => onSelectChat("Rasmus Højlund")} />
+                    {pinnedChats.map(chat => (
+                        <ChatPreview
+                            key={chat.name}
+                            chat={chat}
+                            onClick={() => onSelectChat(chat.name)}
+                            onArchive={onArchive}
+                            onMute={onMute}
+                            onPin={onPin}
+                            onMarkAsRead={onMarkAsRead}
+                            onMarkAsUnread={onMarkAsUnread}
+                            onAddToFavorites={onAddToFavorites}
+                            onExitGroup={onExitGroup}
+                            onBlock={onBlock}
+                            onDeleteChat={onDeleteChat}
+                            onUnpin={onUnpin} // Pass onUnpin prop
+                        />
+                    ))}
                 </div>
             </div>
             <div>
@@ -49,14 +133,26 @@ export default function Sidebar({ onSelectChat }) {
                     <BiMessageRounded className="text-gray-500 font-semibold" />
                 </div>
                 <div className="space-y-3">
-                    <ChatPreview name="Andre Onana" message="I need more time bos 😅" time="11:34 AM" image="https://i.pravatar.cc/44" active onClick={() => onSelectChat("Andre Onana")} />
-                    <ChatPreview name="Reguilon" message="Great performance lad 🔥" time="09:12 AM" image="https://i.pravatar.cc/45" doubleTickblue onClick={() => onSelectChat("Reguilon")} />
-                    <ChatPreview name="Bruno Fernandes" message="Play the game Bruno!" time="10:21 AM" image="https://i.pravatar.cc/46" oneTick active onClick={() => onSelectChat("Bruno Fernandes")} />
-                    <ChatPreview name="Ram" message="Play the game Bruno!" time="10:21 AM" image="https://i.pravatar.cc/47" oneTickBlue active onClick={() => onSelectChat("Ram")} />
-                    <ChatPreview name="Alex" message="Play the game Bruno!" time="10:21 AM" image="https://i.pravatar.cc/48" oneTick onClick={() => onSelectChat("Alex")} />
-                    <ChatPreview name="Chandubhai bvn" message="Play the game Bruno!" time="10:21 AM" image="https://i.pravatar.cc/49" oneTickBlue active onClick={() => onSelectChat("Chandubhai bvn")} />
+                    {regularChats.map(chat => (
+                        <ChatPreview
+                            key={chat.name}
+                            chat={chat}
+                            onClick={() => onSelectChat(chat.name)}
+                            onArchive={onArchive}
+                            onMute={onMute}
+                            onPin={onPin}
+                            onMarkAsRead={onMarkAsRead}
+                            onMarkAsUnread={onMarkAsUnread}
+                            onAddToFavorites={onAddToFavorites}
+                            onExitGroup={onExitGroup}
+                            onBlock={onBlock}
+                            onDeleteChat={onDeleteChat}
+                            onUnpin={onUnpin} // Pass onUnpin prop
+                        />
+                    ))}
                 </div>
             </div>
+            {showAddChatDialog && <AddChatDialog onClose={handleCloseAddChatDialog} onAddChat={onAddChat} />} {/* Render the add chat dialog */}
         </aside>
     );
 }
