@@ -1,110 +1,143 @@
-import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Content from './components/Content';
-import NoChatSelected from './components/NoChatSelected';
-
-const initialChats = [
-  { name: "Harry Maguire", image: "https://i.pravatar.cc/41", typing: false, active: true, typingName: "", type: "personal" },
-  { name: "United Family 🔰", image: "https://i.pravatar.cc/42", typing: true, active: true, typingName: "Rashford", type: "group" },
-  { name: "Rasmus Højlund", image: "https://i.pravatar.cc/43", typing: false, active: false, typingName: "", type: "personal" },
-  { name: "Andre Onana", image: "https://i.pravatar.cc/44", typing: false, active: true, typingName: "", type: "personal" },
-  { name: "Reguilon", image: "https://i.pravatar.cc/45", typing: false, active: false, typingName: "", type: "personal" },
-  { name: "Bruno Fernandes", image: "https://i.pravatar.cc/46", typing: false, active: true, typingName: "", type: "personal" },
-  { name: "Ram", image: "https://i.pravatar.cc/47", typing: false, active: true, typingName: "", type: "personal" },
-  { name: "Alex", image: "https://i.pravatar.cc/48", typing: false, active: false, typingName: "", type: "personal" },
-  { name: "Chandubhai bvn", image: "https://i.pravatar.cc/49", typing: false, active: true, typingName: "", type: "personal" },
-];
+import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/layout/Header';
+import Sidebar from './components/layout/Sidebar';
+import Content from './components/layout/Content';
+import NoChatSelected from './components/shared/NoChatSelected';
+import { addMessage, deleteChatMessages } from '../../redux/messagesSlice';
+import {
+  updateChat,
+  setSelectedChat,
+  markChatAsRead,
+  removeChat,
+  toggleChatMute,
+  pinChat,
+  toggleChatFavorite,
+  unpinChat,
+  addChat,
+  markChatAsUnread
+} from '../../redux/chatsSlice';
+import { setCurrentUser } from '../../redux/usersSlice';
 
 export default function App() {
-  const [chats, setChats] = useState(() => {
-    const savedChats = localStorage.getItem("reactChatData");
-    return savedChats ? JSON.parse(savedChats) : initialChats;
-  });
-  const [selectedChat, setSelectedChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+  const dispatch = useDispatch();
+  const selectedChat = useSelector((state) => state.chats.selectedChat);
+  const chats = useSelector((state) => state.chats.chats);
+  const messages = useSelector((state) => state.messages.messages);
+  const users = useSelector((state) => state.users.users);
+  const currentUser = useSelector((state) => state.users.currentUser);
 
-  useEffect(() => {
-    localStorage.setItem("reactChatData", JSON.stringify(chats));
-  }, [chats]);
+  const handleSelectChat = useCallback((chat) => {
+    dispatch(setSelectedChat(chat));
+    dispatch(markChatAsRead(chat.id));
+  }, [dispatch]);
 
-  useEffect(() => {
-    const newSocket = io('http://localhost:3000');
-    setSocket(newSocket);
+  const sendMessage = useCallback((chatId, messageContent) => {
+    const newMessage = {
+      id: Date.now(),
+      chatId,
+      sender: currentUser.id,
+      content: messageContent,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      doubleTickBlue: false,
+      unread: false,
+      oneTick: true,
+      oneTickBlue: false,
+    };
 
-    newSocket.on('chat message', (msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
-    });
+    dispatch(addMessage({ chatId, message: newMessage }));
+    dispatch(updateChat({
+      id: chatId,
+      message: messageContent,
+      time: newMessage.time,
+      typing: false,
+      typingName: ''
+    }));
+  }, [currentUser.id, dispatch]);
 
-    return () => newSocket.close();
-  }, []);
+  const handleTyping = useCallback((chatId, isTyping) => {
+    dispatch(updateChat({
+      id: chatId,
+      typing: isTyping,
+      typingName: isTyping ? currentUser.name : '',
+      message: isTyping ? `${currentUser.name} is typing...` : chats.find(chat => chat.id === chatId)?.message
+    }));
+  }, [currentUser.name, chats, dispatch]);
 
-  const sendMessage = (msg) => {
-    if (socket) {
-      socket.emit('chat message', msg);
+  const addNewChat = useCallback((user) => {
+    const existingChat = chats.find(chat => chat.type === 'personal' && chat.name === user.name);
+
+    if (!existingChat) {
+      const newChat = {
+        id: Date.now(),
+        name: user.name,
+        image: user.image,
+        typing: false,
+        active: false,
+        typingName: "",
+        type: "personal",
+        message: "",
+        time: "",
+        pinned: false,
+        doubleTickBlue: false,
+        unread: false,
+        oneTick: false,
+        oneTickBlue: false,
+      };
+      dispatch(addChat(newChat));
+      dispatch(setSelectedChat(newChat));
+    } else {
+      dispatch(setSelectedChat(existingChat));
     }
-  };
+  }, [chats, dispatch]);
 
-  const handleSelectChat = (chatName) => {
-    const chat = chats.find(chat => chat.name === chatName);
-    setSelectedChat(chat);
-  };
+  const handleArchive = useCallback((chatId) => {
+    dispatch(removeChat(chatId));
+    dispatch(deleteChatMessages(chatId));
+  }, [dispatch]);
 
-  const addNewChat = (newChat) => {
-    setChats(prevChats => [...prevChats, newChat]);
-  };
+  const handleMute = useCallback((chatId) => {
+    dispatch(toggleChatMute(chatId));
+  }, [dispatch]);
 
-  const handleArchive = (chatName) => {
-    console.log(`Archive chat: ${chatName}`);
-  };
+  const handlePin = useCallback((chatId) => {
+    dispatch(pinChat(chatId));
+  }, [dispatch]);
 
-  const handleMute = (chatName) => {
-    console.log(`Mute notifications for: ${chatName}`);
-  };
+  const handleMarkAsRead = useCallback((chatId) => {
+    dispatch(markChatAsRead(chatId));
+  }, [dispatch]);
 
-  const handlePin = (chatName) => {
-    setChats(prevChats =>
-      prevChats.map(chat =>
-        chat.name === chatName ? { ...chat, pinned: true } : chat
-      )
-    );
-  };
+  const handleMarkAsUnread = useCallback((chatId) => {
+    dispatch(markChatAsUnread(chatId));
+  }, [dispatch]);
 
-  const handleUnpin = (chatName) => {
-    setChats(prevChats =>
-      prevChats.map(chat =>
-        chat.name === chatName ? { ...chat, pinned: false } : chat
-      )
-    );
-  };
+  const handleAddToFavorites = useCallback((chatId) => {
+    dispatch(toggleChatFavorite(chatId));
+  }, [dispatch]);
 
-  const handleMarkAsRead = (chatName) => {
-    console.log(`Mark as read: ${chatName}`);
-  };
+  const handleExitGroup = useCallback((chatId) => {
+    dispatch(removeChat(chatId));
+    dispatch(deleteChatMessages(chatId));
+  }, [dispatch]);
 
-  const handleMarkAsUnread = (chatName) => {
-    console.log(`Mark as unread: ${chatName}`);
-  };
+  const handleBlock = useCallback((chatId) => {
+    dispatch(removeChat(chatId));
+    dispatch(deleteChatMessages(chatId));
+  }, [dispatch]);
 
-  const handleAddToFavorites = (chatName) => {
-    console.log(`Add to favorites: ${chatName}`);
-  };
+  const handleDeleteChat = useCallback((chatId) => {
+    dispatch(removeChat(chatId));
+    dispatch(deleteChatMessages(chatId));
+  }, [dispatch]);
 
-  const handleExitGroup = (chatName) => {
-    console.log(`Exit group: ${chatName}`);
-  };
+  const handleUnpin = useCallback((chatId) => {
+    dispatch(unpinChat(chatId));
+  }, [dispatch]);
 
-  const handleBlock = (chatName) => {
-    console.log(`Block chat: ${chatName}`);
-  };
-
-  const handleDeleteChat = (chatName) => {
-    setChats(prevChats => prevChats.filter(chat => chat.name !== chatName));
-    setSelectedChat(null);
-  };
-
+  const handleSelectUser = useCallback((user) => {
+    dispatch(setCurrentUser(user));
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen flex bg-gray-100 gap-4 p-4">
@@ -122,11 +155,25 @@ export default function App() {
         onBlock={handleBlock}
         onDeleteChat={handleDeleteChat}
         onUnpin={handleUnpin}
+        users={users}
+        currentUser={currentUser}
+        onSelectUser={handleSelectUser}
       />
       {selectedChat ? (
         <div className="flex-1 flex flex-col bg-white rounded-xl shadow overflow-hidden">
-          <Header selectedChat={selectedChat?.name} image={selectedChat?.image} name={selectedChat?.typingName} active={selectedChat?.active} typing={selectedChat?.typing} />
-          <Content selectedChat={selectedChat?.name} messages={messages} sendMessage={sendMessage} />
+          <Header
+            selectedChat={selectedChat}
+            typing={selectedChat?.typing}
+            typingName={selectedChat?.typingName}
+            active={selectedChat?.active}
+          />
+          <Content
+            selectedChat={selectedChat}
+            messages={messages[selectedChat.id] || []}
+            sendMessage={sendMessage}
+            onTyping={handleTyping}
+            currentUser={currentUser}
+          />
         </div>
       ) : (
         <NoChatSelected />

@@ -10,49 +10,49 @@ export default function ChatPreview({ chat, onClick, onArchive, onMute, onPin, o
 
     const handleMenuClick = (e) => {
         e.stopPropagation();
-        setShowContextMenu(!showContextMenu);
+        setShowContextMenu(true);
     };
 
     const handleCloseContextMenu = () => {
         setShowContextMenu(false);
     };
 
-    const handleOptionClick = (action) => {
-        switch (action) {
-            case 'archive':
-                onArchive(chat.name);
+    const handleOptionClick = (option) => {
+        handleCloseContextMenu();
+        switch (option) {
+            case 'Archive':
+                onArchive(chat.id);
                 break;
-            case 'mute':
-                onMute(chat.name);
+            case 'Mute':
+                onMute(chat.id);
                 break;
-            case 'pin':
-                onPin(chat.name);
+            case 'Pin':
+                onPin(chat.id);
                 break;
-            case 'unpin':
-                onUnpin(chat.name);
+            case 'Mark as Read':
+                onMarkAsRead(chat.id);
                 break;
-            case 'markAsRead':
-                onMarkAsRead(chat.name);
+            case 'Mark as Unread':
+                onMarkAsUnread(chat.id);
                 break;
-            case 'markAsUnread':
-                onMarkAsUnread(chat.name);
+            case 'AddToFavorites':
+                onAddToFavorites(chat.id);
                 break;
-            case 'addToFavorites':
-                onAddToFavorites(chat.name);
+            case 'Exit Group':
+                onExitGroup(chat.id);
                 break;
-            case 'exitGroup':
-                onExitGroup(chat.name);
+            case 'Block':
+                onBlock(chat.id);
                 break;
-            case 'block':
-                onBlock(chat.name);
+            case 'Delete Chat':
+                onDeleteChat(chat.id);
                 break;
-            case 'deleteChat':
-                onDeleteChat(chat.name);
+            case 'Unpin':
+                onUnpin(chat.id);
                 break;
             default:
                 break;
         }
-        handleCloseContextMenu();
     };
 
     return (
@@ -76,11 +76,11 @@ export default function ChatPreview({ chat, onClick, onArchive, onMute, onPin, o
                     <span className="text-xs text-gray-500 font-semibold">{chat.time}</span>
                 </div>
                 {chat.oneTickBlue && <IoCheckmarkOutline className="text-blue-500 font-bold text-xl" />}
-                {chat.oneTick && <IoCheckmarkOutline className="text-gray-500 font-bold text-xl" />}
-                {chat.doubleTickblue && <IoCheckmarkDoneOutline className="text-blue-500 font-bold text-xl" />}
+                {chat.oneTick && !chat.oneTickBlue && <IoCheckmarkOutline className="text-gray-500 font-bold text-xl" />}
+                {chat.doubleTickBlue && <IoCheckmarkDoneOutline className="text-blue-500 font-bold text-xl" />}
                 {chat.unread && (
                     <div className="flex items-center justify-center">
-                        <p className="h-[1.15rem] w-[1.15rem] bg-red-500 rounded-full text-xs text-center text-white">2</p>
+                        <p className="h-[1.15rem] w-[1.15rem] bg-red-500 rounded-full text-xs text-center text-white flex items-center justify-center">2</p>
                     </div>
                 )}
             </div>
